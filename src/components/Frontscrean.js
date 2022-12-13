@@ -2,14 +2,49 @@ import React, {useState } from "react";
 import Signup1 from "./Signup1";
 import Signup2 from "./Signup2";
 import Signup3 from "./Signup3";
+import Validation from "./helper/Validation";
 import ContactController from "./apis/controllers/contact.controller";
 const Frontscrean=()=>{
     const [page,setPage]=useState(1);
+    const [isError, setError] = useState({
+        name: {
+            rules: ["required","alphabetic"],
+            isValid: true,
+            message: "",
+        },
+        email: {
+            rules: ["required","email"],
+            isValid: true,
+            message: "",
+        },
+        phone_no: {
+            rules: ["required","numeric"],
+            isValid: true,
+            message: "",
+        },
+        dob: {
+            rules: ["required"],
+            isValid: true,
+            message: "",
+        },
+        password: {
+            rules: ["required","password"],
+            isValid: true,
+            message: "",
+        },
+        confirmpassword: {
+            rules: ["required"," password"],
+            isValid: true,
+            message: "",
+        },
+    });
     const defaultValues={
         name:"",
         email:"",
         phone_no:"",
-        dob:""
+        dob:"",
+        password:"",
+        confirmpassword:""
     };
     const [values,setValues]=useState(defaultValues);
        const [education,setEducation]=useState([]);
@@ -51,8 +86,11 @@ const Frontscrean=()=>{
         }
     };
 
-    const handleChange=(field,e)=>{
-        setValues({...values,[field]:e.target.value})
+    const handleChange=(field,value)=>{
+        const validation = new Validation(isError);
+        let node = validation.validateField(field, value);
+        setError({ ...isError, [field]: node });
+        setValues({...values,[field]:value});
     }
     console.log(values);
    
@@ -69,8 +107,9 @@ const Frontscrean=()=>{
            
            {page===1?
             <Signup1
+            isError={isError}
             values={values}
-            handleChange={(field,e)=>handleChange(field,e)}
+            handleChange={(field,value)=>handleChange(field,value)}
             nextPage={()=>nextPage()}
             />
             :""}
@@ -92,6 +131,9 @@ const Frontscrean=()=>{
 
             {page===3?
             <Signup3
+            isError={isError}
+            handleChange={(field,value)=>handleChange(field,value)}
+            values={values}
             prePage={()=>prePage()}
             nextPage={()=>nextPage()}/>
             :""}
