@@ -2,16 +2,8 @@ import React, { useEffect } from "react";
 import { Form } from "react-bootstrap";
 
 const Signup2 = (props) => {
-    const { nextPage, prePage, education, getEducation, getProfession, profession,
-         getLocation, location, getCountry, country,values,setValues} = props;
-      
-        //  console.log("values--->>>",values.education)
-        //  console.log("values--->>>",values.profession)
-       
-         const handleChange=(e)=>{
-            const name=e.target.name;
-            setValues({[name]:e.target.value});
-        }
+    const { handleSubmit, prePage, education, getEducation, getProfession, profession,isError,
+         getLocation, location, getCountry, country,values,handleChange} = props;
 
     useEffect(() => {
         getEducation();
@@ -26,7 +18,7 @@ const Signup2 = (props) => {
                 <h3>Sign Up</h3><br />
                 <form>
                     <div className='drop1'>
-                        <Form.Select size="sm" value={values.education} name="education" onChange={(e)=>handleChange(e)} >
+                        <Form.Select size="sm" value={values.education} name="education" onChange={(e)=>handleChange("education",e.target.value)} >
                             <option>Select</option>
                             {education.map((item) => {
                                 return (
@@ -36,10 +28,13 @@ const Signup2 = (props) => {
                                 )
                             })}
                         </Form.Select>
+                        {isError.education.message ? (
+                        <p>{isError.education.message}</p>
+                    ) : null}
                     </div>
                     <br />
                     <div className='drop1'>
-                        <Form.Select size="sm"  value={values.profession} name="profession" onChange={(e)=>handleChange(e)}>
+                        <Form.Select size="sm"  value={values.profession} name="profession" onChange={(e)=>handleChange("profession",e.target.value)}>
                         <option>Select</option>
                             {profession.map((item) => {
                                 return (
@@ -49,10 +44,13 @@ const Signup2 = (props) => {
                                 )
                             })}
                         </Form.Select>
+                        {isError.profession.message ? (
+                        <p>{isError.profession.message}</p>
+                    ) : null}
                     </div>
                     <br />
                     <div className='drop1'>
-                        <Form.Select size="sm" value={values.location} name="location" onChange={(e)=>handleChange(e)}>
+                        <Form.Select size="sm" value={values.location} name="location" onChange={(e)=>handleChange("location",e.target.value)}>
                         <option>Select</option>
                             {location.map((item) => {
                                 return (
@@ -62,10 +60,13 @@ const Signup2 = (props) => {
                                 )
                             })}
                         </Form.Select>
+                        {isError.location.message ? (
+                        <p>{isError.location.message}</p>
+                    ) : null}
                     </div>
                     <br />
                     <div className='drop1'>
-                        <Form.Select size="sm"  value={values.country} name="country" onChange={(e)=>handleChange(e)}>
+                        <Form.Select size="sm"  value={values.country} name="country" onChange={(e)=>handleChange("country",e.target.value)}>
                         <option>Select</option>
                             {country.map((item) => {
                                 return (
@@ -75,21 +76,26 @@ const Signup2 = (props) => {
                                 )
                             })}
                         </Form.Select>
+                        {isError.country.message ? (
+                        <p>{isError.country.message}</p>
+                    ) : null}
                     </div>
                     <br />
                     <div className='drop1'>
                         <p>How did you here about us?</p>
-                        <Form.Select size="md" value={values.about_us} name="about_us" onChange={(e)=>handleChange(e)}>
+                        <Form.Select size="md" value={values.about_us} name="about_us" onChange={(e)=>handleChange("about_us",e.target.value)}>
                             <option>select</option>
                             <option value="Facebook">Facebook</option>
                             <option value="Instagram">Instagram</option>
                             <option value="Twiter">Twiter</option>
-                            
                         </Form.Select>
+                        {isError.about_us.message ? (
+                        <p>{isError.about_us.message}</p>
+                    ) : null}
                     </div><br />
                     <div className="btn2">
                         <button type="button" onClick={() => prePage()}>Back</button>&nbsp;&nbsp;&nbsp;
-                        <button type="button" onClick={() => nextPage()}>Next</button>
+                        <button type="button" onClick={(e) => handleSubmit(e)}>Next</button>
                     </div>
                     <br />
                 </form>

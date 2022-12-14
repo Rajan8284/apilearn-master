@@ -20,9 +20,34 @@ class ContactController extends React.Component {
         return response;
     }
     async postFormDetail(data){
-        console.log("CC firstname",data.first_name)
+        console.log("CC education",data.two.education)
         let post={
             first_name:data.one.first_name,
+            last_name:data.one.last_name,
+            middle_name: "",
+            email: data.one.email,
+            phonenumber: data.one.phonenumber,
+            dob: data.one.dob,
+            address:data.two.country.id,
+            city: "",
+            fcm_token: "",
+            gender: "",
+            degree_id: 232,
+            device_id: "",
+            education: data.two.education,
+            location: data.two.location,
+            profession: data.two.profession,
+            profession_title:"",
+            country: data.two.country,
+            about_us: "",
+            device_name: "",
+            device_type: "",
+            password: data.three.password,
+            industry_type_id: [],
+            linkedin_url: "",
+            resumption_semster: "",
+            state: "",
+            zipcode: ""
         }
         let response= await ContactService.postDetails(post);
         return response;

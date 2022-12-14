@@ -48,7 +48,7 @@ const Signup1 = (props) => {
                     ) : null}
                     <br /><br />
                     <div className="btn2">
-                        <button type="button" onClick={(e) =>{handleSubmit(e)}}>
+                        <button type="button" onClick={(e) =>handleSubmit(e)}>
                             Next
                         </button>
                     </div>

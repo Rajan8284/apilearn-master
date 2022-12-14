@@ -5,14 +5,14 @@ const Signup3 = (props) => {
 
     const postData = async () => {
         const response = await new ContactController().postFormDetail(values);
-        console.log("=====>>", response)
+        console.log("Response=====>>", response)
         if (response && response.status) {
             console.log("Response success")
         } else {
-            console.log("error")
+            console.log("Error")
         }
     };
-
+    console.log("values At signup3==>",values.one.first_name)
 
     return (
         <div className="container">
@@ -31,7 +31,7 @@ const Signup3 = (props) => {
                         <p>{isError.confirmpassword.message}</p>
                     ) : null}
                     {
-                        values.password !== values.confirmpassword ?
+                        values.three.password !== values.three.confirmpassword ?
                             <p>Password not match</p> : ""
                     }
                     <br /><br />
@@ -39,7 +39,7 @@ const Signup3 = (props) => {
                         <button type="button" onClick={() => prePage()}>Back</button>&nbsp;
                         <button type="button" onClick={(e) => {
                             handleSubmit(e)
-                            postData()
+                            postData();
                         }}>SignUp</button>
                     </div>
                     <br />

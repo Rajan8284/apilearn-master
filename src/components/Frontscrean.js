@@ -42,6 +42,31 @@ const Frontscrean = () => {
             isValid: true,
             message: "",
         },
+        education:{
+            rules:["required"],
+            isValid: true,
+            message: "",
+        },
+        profession:{
+            rules:["required"],
+            isValid: true,
+            message: "",
+        },
+        location:{
+            rules:["required"],
+            isValid: true,
+            message: "",
+        },
+        country:{
+            rules:["required"],
+            isValid: true,
+            message: "",
+        },
+        about_us:{
+            rules:["required"],
+            isValid: true,
+            message: "",
+        },
     });
     const defaultValues = {
         one: {
@@ -119,7 +144,7 @@ const Frontscrean = () => {
             console.log("NO response");
         }
     };
-
+   // console.log("CountryId=======------->>>>",country.id)
    
     const handleChange = (field, value, step) => {
         let validation = new Validation(isError);
@@ -166,10 +191,8 @@ const Frontscrean = () => {
         setPage(page - 1);
     }
 
-
     return (
         <div>
-
             {page === 1 ?
                 <Signup1
                     isError={isError}
@@ -190,9 +213,11 @@ const Frontscrean = () => {
 
             {page === 2 ?
                 <Signup2
+                    isError={isError}
                     country={country}
                     values={values}
                     setValues={setValues}
+                    handleChange={(field, value) => handleChange(field, value, 'two')}
                     getCountry={() => getCountry()}
                     profession={profession}
                     getEducation={() => getEducation()}
@@ -202,6 +227,16 @@ const Frontscrean = () => {
                     getLocation={() => getLocation()}
                     nextPage={() => nextPage()}
                     prePage={() => prePage()}
+                    handleSubmit={(e) => {
+                        e.preventDefault();
+                        let validation = new Validation(isError);
+                        let isValid = validation.isFormValid(values.two);
+                        if (isValid && !isValid.haveError) {
+                            setPage(page + 1)
+                        } else {
+                            setError({ ...isValid.errors });
+                        }
+                    }}
                 />
                 : ""}
 
@@ -217,7 +252,7 @@ const Frontscrean = () => {
                         let isValid = validation.isFormValid(values.three);
                         if (isValid && !isValid.haveError){
                             if(values.three.password !==values.three.confirmpassword){
-                                console.log("Not match")
+                                console.log("Password Not match")
                             }else{
                                 setPage(page + 1)
                             }
