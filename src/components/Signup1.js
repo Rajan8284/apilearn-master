@@ -1,17 +1,25 @@
 import React from "react";
 
 const Signup1 = (props) => {
-    const { nextPage, values, handleChange, isError} = props;
+    const { values, handleChange, isError, handleSubmit} = props;
     return (
         <div className="container">
             <div className="signup">
                 <form>
                     <h3>Sign Up</h3><br />
-                    <input placeholder="Enter your name"  value={values.name} name="name"
-                        type="text" onChange={(e) => handleChange("name",e.target.value)} />
-                    {isError.name.message ? (
+                    <input placeholder="Enter your firstname"  value={values.first_name} name="first_name"
+                        type="text" onChange={(e) => handleChange("first_name",e.target.value)} />
+                    {isError.first_name.message ? (
                         <p>
-                            {isError.name.message}
+                            {isError.first_name.message}
+                        </p>
+                    ) : null}
+                    <br /><br />
+                    <input placeholder="Enter your lastname"  value={values.last_name} name="last_name"
+                        type="text" onChange={(e) => handleChange("last_name",e.target.value)} />
+                    {isError.last_name.message ? (
+                        <p>
+                            {isError.last_name.message}
                         </p>
                     ) : null}
                     <br /><br />
@@ -23,11 +31,11 @@ const Signup1 = (props) => {
                         </p>
                     ) : null}
                     <br /><br />
-                    <input placeholder="Enter your conatact" name="phone_no" value={values.phone_no}
-                        type="text" onChange={(e) => handleChange("phone_no", e.target.value)} />
-                         {isError.phone_no.message ? (
+                    <input placeholder="Enter your contact number" name="phonenumber" value={values.phonenumber}
+                        type="text" onChange={(e) => handleChange("phonenumber", e.target.value)} />
+                         {isError.phonenumber.message ? (
                         <p className="">
-                            {isError.phone_no.message}
+                            {isError.phonenumber.message}
                         </p>
                     ) : null}
                     <br /><br />
@@ -40,7 +48,7 @@ const Signup1 = (props) => {
                     ) : null}
                     <br /><br />
                     <div className="btn2">
-                        <button type="button" onClick={() => { nextPage() }}>
+                        <button type="button" onClick={(e) =>{handleSubmit(e)}}>
                             Next
                         </button>
                     </div>

@@ -3,10 +3,10 @@ import Constant from "../constants";
 const ContactService={
 getContact,
 saveContactUs,
-putContact,
 getProfession,
 getLocation,
 getCountry,
+postDetails
 };
 function getContact(params) {
     return mainWrapper.get(Constant.host + "education",params);
@@ -24,8 +24,8 @@ function saveContactUs(params) {
     return mainWrapper.post(Constant.host + "auth/signup",params);
 };
 
-function putContact(params) {
-    return mainWrapper.put(Constant.host + "/posts/1",params);
+function postDetails(params) {
+    return mainWrapper.post(Constant.host + "auth/prospective-signup",params);
 };
 
 

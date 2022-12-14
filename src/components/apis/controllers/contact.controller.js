@@ -19,6 +19,15 @@ class ContactController extends React.Component {
         let response = await ContactService.getCountry();
         return response;
     }
+    async postFormDetail(data){
+        console.log("CC firstname",data.first_name)
+        let post={
+            first_name:data.one.first_name,
+        }
+        let response= await ContactService.postDetails(post);
+        return response;
+    }
+
     async contactUs(data, countryData) {
         let post = {
             country_code: "+" + countryData.dialCode,
