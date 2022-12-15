@@ -23,6 +23,7 @@ export default class Validation extends React.Component {
             url: "Please enter a valid link",
             match_value: "The entered input did not match.",
             image: "Please select an image",
+            dob:"Age should be above 18 ! "
         };
     }
     validateField(key, value) {
@@ -120,6 +121,17 @@ export default class Validation extends React.Component {
                             ),
                         };
                     }
+                    break;
+                    case "dob":
+                        const currentYear = new Date().getFullYear();
+                        const year =value.split("-")[0];
+                        const age = currentYear - year;
+                        if (age < 18){
+                            error={
+                                isValid:false,
+                                message:this.messages[rule[0]]
+                            }
+                        }
                     break;
                 case "minmax":
                     if (

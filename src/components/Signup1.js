@@ -1,6 +1,6 @@
 import React from "react";
 const Signup1 = (props) => {
-    const { values, handleChange, isError, handleSubmit } = props;
+    const { values, handleChange, isError, handleSubmit} = props;
     
     return (
         <div className="container">
@@ -40,7 +40,7 @@ const Signup1 = (props) => {
                     ) : null}
                     <br /><br />
                     <input placeholder="Enter date of birth" name="dob" value={values.dob}
-                        type="date" onChange={(e) => handleChange("dob", e.target.value)} />
+                        type="date" onChange={(e)=>handleChange("dob",e.target.value)} />
                     {isError.dob.message ? (
                         <p className="">
                             {isError.dob.message}

@@ -29,7 +29,7 @@ const Frontscrean = () => {
             message: "",
         },
         dob: {
-            rules: ["required"],
+            rules: ["required" ,"dob"],
             isValid: true,
             message: "",
         },
@@ -182,9 +182,6 @@ const Frontscrean = () => {
         setShowModal(true);
     }
      
-    const nextPage = () => {
-        setPage(page + 1);
-    };
     const prePage = () => {
         setPage(page - 1);
     }
@@ -193,6 +190,8 @@ const Frontscrean = () => {
         <div>
             {page === 1 ?
                 <Signup1
+                page={page}
+                setPage={setPage}
                     isError={isError}
                     values={values}
                     handleChange={(field, value) => handleChange(field, value, 'one')}
@@ -224,7 +223,6 @@ const Frontscrean = () => {
                     education={education}
                     location={location}
                     getLocation={() => getLocation()}
-                    nextPage={() => nextPage()}
                     prePage={() => prePage()}
                     handleSubmit={(e) => {
                         e.preventDefault();
