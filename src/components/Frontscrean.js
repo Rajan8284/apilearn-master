@@ -4,6 +4,7 @@ import Signup2 from "./Signup2";
 import Signup3 from "./Signup3";
 import Validation from "./helper/Validation";
 import ContactController from "./apis/controllers/contact.controller";
+import Successpopup from "./Succusspopup";
 const Frontscrean = () => {
     const [page, setPage] = useState(1);
     const [isError, setError] = useState({
@@ -71,36 +72,21 @@ const Frontscrean = () => {
     const defaultValues = {
         one: {
             first_name: "",
-            middle_name: "",
             last_name: "",
             email: "",
             phonenumber: "",
-            dob: "",
-            address: "",
-            city: "",
-            fcm_token: "",
-            gender: "",
+            dob: "",           
         },
         two: {
-            degree_id: "",
-            device_id: "",
             education: "",
             location: "",
             profession: "",
-            profession_title: "",
             country: "",
             about_us: ""
         },
         three: {
-            device_name: "",
-            device_type: "",
             password: "",
             confirmpassword: "",
-            industry_type_id: [],
-            linkedin_url: "",
-            resumption_semster: "",
-            state: "",
-            zipcode: ""
         }
        
     };
@@ -110,7 +96,7 @@ const Frontscrean = () => {
     const [profession, setProfession] = useState([]);
     const [location, setLocation] = useState([]);
     const [country, setCountry] = useState([]);
-
+    const [showModal,setShowModal]=useState(false)
     const getEducation = async () => {
         const response = await new ContactController().getEducationDetail();
         if (response && response.status) {
@@ -119,7 +105,7 @@ const Frontscrean = () => {
             console.log("NO response");
         }
     };
-
+    
     const getProfession = async () => {
         const response = await new ContactController().getProfessionDetail();
         if (response && response.status) {
@@ -144,7 +130,7 @@ const Frontscrean = () => {
             console.log("NO response");
         }
     };
-    console.log("CountryId=======------->>>>",country)
+
    
     const handleChange = (field, value, step) => {
         let validation = new Validation(isError);
@@ -182,8 +168,11 @@ const Frontscrean = () => {
         }
     };
     console.log("---==>values", values);
-
-
+    
+    const showSuccessModal=()=>{
+        setShowModal(true);
+    }
+     
     const nextPage = () => {
         setPage(page + 1);
     };
@@ -205,7 +194,8 @@ const Frontscrean = () => {
                         if (isValid && !isValid.haveError) {
                             setPage(page + 1)
                         } else {
-                            setError({ ...isValid.errors });
+                          
+                           setError({ ...isValid.errors });
                         }
                     }}
                 />
@@ -238,10 +228,12 @@ const Frontscrean = () => {
                         }
                     }}
                 />
-                : ""}
+                : ""} 
 
             {page === 3 ?
                 <Signup3
+                    showSuccessModal={()=>showSuccessModal()}
+                    education={education}
                     isError={isError}
                     handleChange={(field, value) => handleChange(field, value, 'three')}
                     values={values}
@@ -259,9 +251,14 @@ const Frontscrean = () => {
                         } else {
                             setError({ ...isValid.errors });
                         }
-                    }} />
-                : ""}
+                    }} /> : ""}
 
+                  { showModal ?
+                  <Successpopup
+                  show={showModal}
+                  close={()=>setShowModal(true)}
+                  />
+                  :""}
         </div>
     )
 }

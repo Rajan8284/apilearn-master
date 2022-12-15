@@ -1,18 +1,17 @@
 import React from "react";
 import ContactController from "./apis/controllers/contact.controller";
 const Signup3 = (props) => {
-    const { prePage, values, handleChange, isError, handleSubmit } = props;
-
+    const { prePage, values, handleChange, isError, handleSubmit , showSuccessModal} = props;
+   
     const postData = async () => {
         const response = await new ContactController().postFormDetail(values);
-        console.log("Response=====>>", response)
         if (response && response.status) {
-            console.log("Response success")
+            showSuccessModal();
+            console.log("Response success=>",response.message);
         } else {
-            console.log("Error")
+            console.log("Response Error=>",response.message);
         }
     };
-    console.log("values At signup3==>",values.one.first_name)
 
     return (
         <div className="container">
@@ -40,6 +39,7 @@ const Signup3 = (props) => {
                         <button type="button" onClick={(e) => {
                             handleSubmit(e)
                             postData();
+                            
                         }}>SignUp</button>
                     </div>
                     <br />
