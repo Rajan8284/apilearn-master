@@ -1,17 +1,8 @@
 import React from "react";
-import ContactController from "./apis/controllers/contact.controller";
 const Signup3 = (props) => {
-    const { prePage, values, handleChange, isError, handleSubmit , showSuccessModal} = props;
+    const { prePage, values, handleChange, isError, handleSubmit , postData} = props;
    
-    const postData = async () => {
-        const response = await new ContactController().postFormDetail(values);
-        if (response && response.status) {
-            showSuccessModal();
-            console.log("Response success=>",response.message);
-        } else {
-            console.log("Response Error=>",response.message);
-        }
-    };
+   
 
     return (
         <div className="container">
@@ -39,7 +30,6 @@ const Signup3 = (props) => {
                         <button type="button" onClick={(e) => {
                             handleSubmit(e)
                             postData();
-                            
                         }}>SignUp</button>
                     </div>
                     <br />

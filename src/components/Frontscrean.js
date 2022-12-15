@@ -130,7 +130,15 @@ const Frontscrean = () => {
             console.log("NO response");
         }
     };
-
+    const postData = async () => {
+        const response = await new ContactController().postFormDetail(values);
+        if (response && response.status) {
+            showSuccessModal();
+            console.log("Response success=>",response.message);
+        } else {
+            console.log("Response Error=>",response.message);
+        }
+    };
    
     const handleChange = (field, value, step) => {
         let validation = new Validation(isError);
@@ -232,6 +240,7 @@ const Frontscrean = () => {
 
             {page === 3 ?
                 <Signup3
+                postData={()=>postData()}
                     showSuccessModal={()=>showSuccessModal()}
                     education={education}
                     isError={isError}
