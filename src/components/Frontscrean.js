@@ -91,7 +91,7 @@ const Frontscrean = () => {
        
     };
     const [values, setValues] = useState(defaultValues);
-
+    const [responseMsg,setResponseMsg]=useState(null);
     const [education, setEducation] = useState([]);
     const [profession, setProfession] = useState([]);
     const [location, setLocation] = useState([]);
@@ -133,6 +133,7 @@ const Frontscrean = () => {
     const postData = async () => {
         const response = await new ContactController().postFormDetail(values);
         if (response && response.status) {
+            setResponseMsg(response)
             showSuccessModal();
             console.log("Response success=>",response.message);
         } else {
@@ -264,6 +265,7 @@ const Frontscrean = () => {
 
                   { showModal ?
                   <Successpopup
+                  responseMsg={responseMsg}
                   show={showModal}
                   close={()=>setShowModal(true)}
                   />
