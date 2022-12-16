@@ -5,7 +5,7 @@ const Successpopup=(props)=>{
 return(
     <div>
         <Modal show={show} onHide={close}>
-        <Modal.Header closeButton={close}>
+        <Modal.Header closeButton   onClick={close}>
         <Modal.Title>Registration successfully</Modal.Title>
         </Modal.Header>
         <Modal.Body>

@@ -296,8 +296,8 @@ const Frontscrean = () => {
             {showModal ?
                 <Successpopup
                     successMsg={successMsg}
-                    close={showModal}
-                    show={() => setShowModal(true)}
+                    show={showModal}
+                    close={() => setShowModal(false)}
                 />
                 : ""}
         </div>
