@@ -9,8 +9,8 @@ return(
         <Modal.Title>Registration successfully</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-         <h5>{successMsg}</h5>
-        </Modal.Body>
+        <center><h5>{successMsg}</h5></center>
+       </Modal.Body>
         </Modal>
     </div>
 )
