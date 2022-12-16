@@ -52,10 +52,9 @@ class ContactController extends React.Component {
     };
 
     async postemailDetail(data, token) {
-        console.log("Token========>>>>",token)
-        let post = {
+            let post = {
             otp: data.four.otp,
-        }
+        };
         let response = await ContactService.postemailOtp(post,token);
         return response;
     };

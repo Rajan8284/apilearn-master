@@ -24,13 +24,12 @@ function getCountry(params) {
 function saveContactUs(params) {
     return mainWrapper.post(Constant.host + "auth/signup",params);
 };
-
 function postDetails(params) {
     return mainWrapper.post(Constant.host + "auth/prospective-signup",params);
 };
 function postemailOtp(params,token) {
-    return mainWrapper.post(Constant.host + "auth/email-verification/"+token,params);
+    let url =Constant.host + "auth/email-verification/"+token;
+    return mainWrapper.get(url,params);
 };
-
 
 export default  ContactService

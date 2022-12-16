@@ -73,7 +73,7 @@ const Frontscrean = () => {
         otp: {
             rules: ["required"],
             isValid: true,
-            message: ""
+            message: "",
         }
     });
     const defaultValues = {
@@ -115,7 +115,6 @@ const Frontscrean = () => {
             console.log("NO response");
         }
     };
-
     const getProfession = async () => {
         const response = await new ContactController().getProfessionDetail();
         if (response && response.status) {
@@ -143,24 +142,25 @@ const Frontscrean = () => {
     const postData = async () => {
         const response = await new ContactController().postFormDetail(values);
         if (response && response.status) {
-            setResponseMsg(response.message)
-            // console.log("Token=======>>>>", response.user.token)
+            setResponseMsg(response.message);
             setToken(response.user.token);
-            setPage(page + 1)
-            console.log("Response success=>", response.message);
+            setPage(page + 1);
+            console.log("Response succ;ess=>", response.message);
         } else {
             console.log("Response Error=>", response.message);
         }
     };
-
+    const [successMsg, setSuccessMsg] = useState(null);
     const verifyEmail = async () => {
         const response = await new ContactController().postemailDetail(values, token);
         if (response && response.status) {
-            console.log("Verify Successfull")
+            setSuccessMsg(response.message)
+            setShowModal(true);
+            console.log("Verify Successfull");
         } else {
-            console.log("No response")
+            console.log("No response");
         }
-    }
+    };
 
     const handleChange = (field, value, step) => {
         let validation = new Validation(isError);
@@ -199,10 +199,6 @@ const Frontscrean = () => {
     };
     console.log("---==>values", values);
 
-    const showSuccessModal = () => {
-        setShowModal(true);
-    }
-
     const prePage = () => {
         setPage(page - 1);
     }
@@ -221,7 +217,6 @@ const Frontscrean = () => {
                         if (isValid && !isValid.haveError) {
                             setPage(page + 1)
                         } else {
-
                             setError({ ...isValid.errors });
                         }
                     }}
@@ -258,7 +253,6 @@ const Frontscrean = () => {
             {page === 3 ?
                 <Signup3
                     postData={() => postData()}
-                    showSuccessModal={() => showSuccessModal()}
                     isError={isError}
                     handleChange={(field, value) => handleChange(field, value, 'three')}
                     values={values}
@@ -291,7 +285,7 @@ const Frontscrean = () => {
                         let validation = new Validation(isError);
                         let isValid = validation.isFormValid(values.four);
                         if (isValid && !isValid.haveError) {
-                            console.log("Verify successfully===>>>")
+                            console.log("successfully")
                         } else {
                             setError({ ...isValid.errors });
                         }
@@ -301,7 +295,7 @@ const Frontscrean = () => {
 
             {showModal ?
                 <Successpopup
-                    responseMsg={responseMsg}
+                    successMsg={successMsg}
                     close={showModal}
                     show={() => setShowModal(true)}
                 />
