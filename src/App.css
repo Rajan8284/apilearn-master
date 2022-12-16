@@ -17,7 +17,7 @@
 .signup{
   border-radius: 10px;
   border: 10px solid rgb(255, 255, 255);
-  background-color: rgb(134, 255, 86);
+  background-color: rgb(255, 205, 68);
 }
 .btn2 button {
   border-radius: 7px;
@@ -41,4 +41,10 @@ input {
 
 input:focus {
   border: 3px solid rgb(98, 0, 255);
+}
+.signup1{
+  padding: 15px;
+  border-radius: 10px;
+  border: 10px solid rgb(255, 255, 255);
+  background-color: #50f5b6;
 }

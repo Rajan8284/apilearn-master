@@ -2,7 +2,7 @@ import React from "react";
 import ContactService from "../services/contact.services";
 
 class ContactController extends React.Component {
-    
+
     async getEducationDetail() {
         let response = await ContactService.getContact();
         return response;
@@ -10,32 +10,32 @@ class ContactController extends React.Component {
     async getProfessionDetail() {
         let response = await ContactService.getProfession();
         return response;
-    }
-    async getLocationDetail(){
+    };
+    async getLocationDetail() {
         let response = await ContactService.getLocation();
         return response;
-    }
-    async getCountryDetail(){
+    };
+    async getCountryDetail() {
         let response = await ContactService.getCountry();
         return response;
-    }
-    async postFormDetail(data){
-            let post={
-            first_name:data.one.first_name,
-            last_name:data.one.last_name,
+    };
+    async postFormDetail(data) {
+        let post = {
+            first_name: data.one.first_name,
+            last_name: data.one.last_name,
             middle_name: "",
             email: data.one.email,
             phonenumber: "",
             dob: "",
-            address:data.two.location,
+            address: data.two.location,
             city: "",
             fcm_token: "",
             gender: "",
-            degree_id:data.two.education,
+            degree_id: data.two.education,
             device_id: "",
             education: "",
             profession: data.two.profession,
-            profession_title:"",
+            profession_title: "",
             country: data.two.country,
             about_us: data.two.about_us,
             device_name: "",
@@ -47,9 +47,18 @@ class ContactController extends React.Component {
             state: "",
             zipcode: ""
         }
-        let response= await ContactService.postDetails(post);
+        let response = await ContactService.postDetails(post);
         return response;
-    }
+    };
+
+    async postemailDetail(data, token) {
+        console.log("Token========>>>>",token)
+        let post = {
+            otp: data.four.otp,
+        }
+        let response = await ContactService.postemailOtp(post,token);
+        return response;
+    };
 
     async contactUs(data, countryData) {
         let post = {

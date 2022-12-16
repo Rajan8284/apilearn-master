@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import Signup1 from "./Signup1";
 import Signup2 from "./Signup2";
 import Signup3 from "./Signup3";
+import Signupverify from "./Signupverify";
 import Validation from "./helper/Validation";
 import ContactController from "./apis/controllers/contact.controller";
 import Successpopup from "./Succusspopup";
+
 const Frontscrean = () => {
     const [page, setPage] = useState(1);
     const [isError, setError] = useState({
@@ -29,7 +31,7 @@ const Frontscrean = () => {
             message: "",
         },
         dob: {
-            rules: ["required" ,"dob"],
+            rules: ["required", "dob"],
             isValid: true,
             message: "",
         },
@@ -43,31 +45,36 @@ const Frontscrean = () => {
             isValid: true,
             message: "",
         },
-        education:{
-            rules:["required"],
+        education: {
+            rules: ["required"],
             isValid: true,
             message: "",
         },
-        profession:{
-            rules:["required"],
+        profession: {
+            rules: ["required"],
             isValid: true,
             message: "",
         },
-        location:{
-            rules:["required"],
+        location: {
+            rules: ["required"],
             isValid: true,
             message: "",
         },
-        country:{
-            rules:["required"],
+        country: {
+            rules: ["required"],
             isValid: true,
             message: "",
         },
-        about_us:{
-            rules:["required"],
+        about_us: {
+            rules: ["required"],
             isValid: true,
             message: "",
         },
+        otp: {
+            rules: ["required"],
+            isValid: true,
+            message: ""
+        }
     });
     const defaultValues = {
         one: {
@@ -75,7 +82,7 @@ const Frontscrean = () => {
             last_name: "",
             email: "",
             phonenumber: "",
-            dob: "",           
+            dob: "",
         },
         two: {
             education: "",
@@ -87,16 +94,19 @@ const Frontscrean = () => {
         three: {
             password: "",
             confirmpassword: "",
+        },
+        four: {
+            otp: "",
         }
-       
     };
     const [values, setValues] = useState(defaultValues);
-    const [responseMsg,setResponseMsg]=useState(null);
+    const [responseMsg, setResponseMsg] = useState(null);
+    const [token, setToken] = useState(null);
     const [education, setEducation] = useState([]);
     const [profession, setProfession] = useState([]);
     const [location, setLocation] = useState([]);
     const [country, setCountry] = useState([]);
-    const [showModal,setShowModal]=useState(false)
+    const [showModal, setShowModal] = useState(false)
     const getEducation = async () => {
         const response = await new ContactController().getEducationDetail();
         if (response && response.status) {
@@ -105,7 +115,7 @@ const Frontscrean = () => {
             console.log("NO response");
         }
     };
-    
+
     const getProfession = async () => {
         const response = await new ContactController().getProfessionDetail();
         if (response && response.status) {
@@ -133,14 +143,25 @@ const Frontscrean = () => {
     const postData = async () => {
         const response = await new ContactController().postFormDetail(values);
         if (response && response.status) {
-            setResponseMsg(response)
-            showSuccessModal();
-            console.log("Response success=>",response.message);
+            setResponseMsg(response.message)
+            // console.log("Token=======>>>>", response.user.token)
+            setToken(response.user.token);
+            setPage(page + 1)
+            console.log("Response success=>", response.message);
         } else {
-            console.log("Response Error=>",response.message);
+            console.log("Response Error=>", response.message);
         }
     };
-   
+
+    const verifyEmail = async () => {
+        const response = await new ContactController().postemailDetail(values, token);
+        if (response && response.status) {
+            console.log("Verify Successfull")
+        } else {
+            console.log("No response")
+        }
+    }
+
     const handleChange = (field, value, step) => {
         let validation = new Validation(isError);
         let node = validation.validateField(field, value);
@@ -177,11 +198,11 @@ const Frontscrean = () => {
         }
     };
     console.log("---==>values", values);
-    
-    const showSuccessModal=()=>{
+
+    const showSuccessModal = () => {
         setShowModal(true);
     }
-     
+
     const prePage = () => {
         setPage(page - 1);
     }
@@ -190,8 +211,6 @@ const Frontscrean = () => {
         <div>
             {page === 1 ?
                 <Signup1
-                page={page}
-                setPage={setPage}
                     isError={isError}
                     values={values}
                     handleChange={(field, value) => handleChange(field, value, 'one')}
@@ -202,8 +221,8 @@ const Frontscrean = () => {
                         if (isValid && !isValid.haveError) {
                             setPage(page + 1)
                         } else {
-                          
-                           setError({ ...isValid.errors });
+
+                            setError({ ...isValid.errors });
                         }
                     }}
                 />
@@ -214,7 +233,6 @@ const Frontscrean = () => {
                     isError={isError}
                     country={country}
                     values={values}
-                    setValues={setValues}
                     handleChange={(field, value) => handleChange(field, value, 'two')}
                     getCountry={() => getCountry()}
                     profession={profession}
@@ -235,13 +253,12 @@ const Frontscrean = () => {
                         }
                     }}
                 />
-                : ""} 
+                : ""}
 
             {page === 3 ?
                 <Signup3
-                postData={()=>postData()}
-                    showSuccessModal={()=>showSuccessModal()}
-                    education={education}
+                    postData={() => postData()}
+                    showSuccessModal={() => showSuccessModal()}
                     isError={isError}
                     handleChange={(field, value) => handleChange(field, value, 'three')}
                     values={values}
@@ -250,10 +267,10 @@ const Frontscrean = () => {
                         e.preventDefault();
                         let validation = new Validation(isError);
                         let isValid = validation.isFormValid(values.three);
-                        if (isValid && !isValid.haveError){
-                            if(values.three.password !==values.three.confirmpassword){
+                        if (isValid && !isValid.haveError) {
+                            if (values.three.password !== values.three.confirmpassword) {
                                 console.log("Password Not match")
-                            }else{
+                            } else {
                                 setPage(page + 1)
                             }
                         } else {
@@ -261,13 +278,34 @@ const Frontscrean = () => {
                         }
                     }} /> : ""}
 
-                  { showModal ?
-                  <Successpopup
-                  responseMsg={responseMsg}
-                  show={showModal}
-                  close={()=>setShowModal(true)}
-                  />
-                  :""}
+            {page === 4 ?
+                <Signupverify
+                    verifyEmail={() => verifyEmail()}
+                    responseMsg={responseMsg}
+                    isError={isError}
+                    values={values}
+                    handleChange={(field, value) => handleChange(field, value, 'four')}
+                    show={() => setShowModal(true)}
+                    handleSubmit={(e) => {
+                        e.preventDefault();
+                        let validation = new Validation(isError);
+                        let isValid = validation.isFormValid(values.four);
+                        if (isValid && !isValid.haveError) {
+                            console.log("Verify successfully===>>>")
+                        } else {
+                            setError({ ...isValid.errors });
+                        }
+                    }}
+                />
+                : ""}
+
+            {showModal ?
+                <Successpopup
+                    responseMsg={responseMsg}
+                    close={showModal}
+                    show={() => setShowModal(true)}
+                />
+                : ""}
         </div>
     )
 }

@@ -6,7 +6,8 @@ saveContactUs,
 getProfession,
 getLocation,
 getCountry,
-postDetails
+postDetails,
+postemailOtp,
 };
 function getContact(params) {
     return mainWrapper.get(Constant.host + "education",params);
@@ -26,6 +27,9 @@ function saveContactUs(params) {
 
 function postDetails(params) {
     return mainWrapper.post(Constant.host + "auth/prospective-signup",params);
+};
+function postemailOtp(params,token) {
+    return mainWrapper.post(Constant.host + "auth/email-verification/"+token,params);
 };
 
 
