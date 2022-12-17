@@ -6,7 +6,8 @@ const Signup1 = (props) => {
     return (
         <div className="container">
             <div className="signup">
-                <div className="btn3"><Link to="/Login">Login</Link></div>
+                <br/>
+                <Link className="btn3" to="/Login">Login</Link>
                 <form>
                     <h3>Sign Up</h3><br />
                     <input placeholder="Enter your firstname" value={values.first_name} name="first_name"

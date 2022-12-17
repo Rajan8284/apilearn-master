@@ -139,7 +139,7 @@ const FunctionService=()=>{
             setResponseMsg(response.message);
             setToken(response.user.token);
             setPage(page + 1);
-            console.log("Response succ;ess=>", response.message);
+            console.log("Response success=>", response.message);
         } else {
             console.log("Response Error=>", response.message);
         }
