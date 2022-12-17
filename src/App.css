@@ -48,3 +48,17 @@ input:focus {
   border: 10px solid rgb(255, 255, 255);
   background-color: #50f5b6;
 }
+.btn3{
+  text-decoration: none;
+  border-radius: 7px;
+  width: 80px;
+  height: 30px;
+  background-color: rgb(18, 15, 17);
+  font-weight: bold;
+  color: rgb(177, 116, 116);
+  border: 0 none;
+  border-radius: 1px;
+  cursor: pointer;
+  margin: 10px 5px;
+  margin: 5px;
+}

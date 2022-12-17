@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 const Signup1 = (props) => {
-    const { values, handleChange, isError, handleSubmit} = props;
-    
+    const { values, handleChange, isError, handleSubmit } = props;
+
     return (
         <div className="container">
             <div className="signup">
+                <div className="btn3"><Link to="/Login">Login</Link></div>
                 <form>
                     <h3>Sign Up</h3><br />
                     <input placeholder="Enter your firstname" value={values.first_name} name="first_name"
@@ -40,7 +42,7 @@ const Signup1 = (props) => {
                     ) : null}
                     <br /><br />
                     <input placeholder="Enter date of birth" name="dob" value={values.dob}
-                        type="date" onChange={(e)=>handleChange("dob",e.target.value)} />
+                        type="date" onChange={(e) => handleChange("dob", e.target.value)} />
                     {isError.dob.message ? (
                         <p className="">
                             {isError.dob.message}
@@ -49,7 +51,7 @@ const Signup1 = (props) => {
                     <br /><br />
                     <div className="btn2">
                         <button type="button" onClick={(e) => {
-                            handleSubmit(e)                           
+                            handleSubmit(e)
                         }}>
                             Next
                         </button>

@@ -8,6 +8,7 @@ getLocation,
 getCountry,
 postDetails,
 postemailOtp,
+postLogin,
 };
 function getContact(params) {
     return mainWrapper.get(Constant.host + "education",params);
@@ -31,5 +32,7 @@ function postemailOtp(params,token) {
     let url =Constant.host + "auth/email-verification/"+token;
     return mainWrapper.get(url,params);
 };
-
+function postLogin(params){
+    return mainWrapper.post(Constant.host + "auth/login",params);
+};
 export default  ContactService

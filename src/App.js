@@ -1,11 +1,22 @@
 import './App.css';
-import Frontscrean from './components/Frontscrean';;
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Frontscrean from './components/Frontscrean';
+import Login from './components/Login';
+
 
 function App() {
   return (
     <div className="App">
-      <Frontscrean/>
-      
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Frontscrean />}>
+          <Route path="/Login" element={<Login/>} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+      {/* <Frontscrean/> */}
+      {/* <Login /> */}
+
     </div>
   );
 }

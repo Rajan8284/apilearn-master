@@ -59,23 +59,33 @@ class ContactController extends React.Component {
         return response;
     };
 
-    async contactUs(data, countryData) {
-        let post = {
-            country_code: "+" + countryData.dialCode,
-            phonenumber: data.phone_no,
+     async postLoginDetail(data){
+        let post={
+            email:data.email,
+            password:data.password,
         };
-        let response = await ContactService.saveContactUs(post);
+        let response=await ContactService.postLogin(post);
         return response;
-    };
+     }
+  
 
-    async putContact(data) {
-        let put = {
-            title: data.title,
-            body: data.body,
-        };
-        let response = await ContactService.putContact(put);
-        return response;
-    };
+    // async contactUs(data, countryData) {
+    //     let post = {
+    //         country_code: "+" + countryData.dialCode,
+    //         phonenumber: data.phone_no,
+    //     };
+    //     let response = await ContactService.saveContactUs(post);
+    //     return response;
+    // };
+
+    // async putContact(data) {
+    //     let put = {
+    //         title: data.title,
+    //         body: data.body,
+    //     };
+    //     let response = await ContactService.putContact(put);
+    //     return response;
+    // };
 
 
 }
