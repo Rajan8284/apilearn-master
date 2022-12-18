@@ -1,5 +1,6 @@
 import {useState} from "react";
 import Validation from "../helper/Validation";
+import { toast } from 'react-toastify';
 import ContactController from "../apis/controllers/contact.controller";
 const FunctionService=()=>{
     const [page, setPage] = useState(1);
@@ -134,16 +135,16 @@ const FunctionService=()=>{
             console.log("NO response");
         }
     };
-   
+    const notify = () => toast("Email has been already taken Please try with another email address");
     const postData = async () => {
         const response = await new ContactController().postFormDetail(values);
         if (response && response.status) {
-            setResponseMsg(response.message);
+             setResponseMsg(response.message);
             setToken(response.user.token);
             setPage(page + 1);
             console.log("Response success=>", response.message);
         } else {
-            setPage(page===3)
+            notify();
             setErrMsg(response.message);
             console.log("Response Error======>", response.message);
         }
@@ -160,7 +161,7 @@ const FunctionService=()=>{
             console.log("No response");
         }
     };
-
+     
     const handleChange = (field, value, step) => {
         let validation = new Validation(isError);
         let node = validation.validateField(field, value);

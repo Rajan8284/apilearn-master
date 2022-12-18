@@ -1,8 +1,10 @@
 import React from "react";
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Signup3 = (props) => {
-    const { prePage, values, handleChange, isError, handleSubmit ,errMsg, postData} = props;
-   console.log("=================SignUp3",errMsg)
-   
+    const { prePage, values, handleChange, isError, handleSubmit, errMsg, postData } = props;
+
+    
 
     return (
         <div className="container">
@@ -24,18 +26,31 @@ const Signup3 = (props) => {
                         values.three.password !== values.three.confirmpassword ?
                             <p>Password not match</p> : ""
                     }
-                    {errMsg}
+                    <br />{errMsg}
                     <br /><br />
                     <div className="btn2">
                         <button type="button" onClick={() => prePage()}>Back</button>&nbsp;
                         <button type="button" onClick={(e) => {
                             handleSubmit(e)
                             postData();
+                           
                         }}>SignUp</button>
                     </div>
                     <br />
                 </form>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={4000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={true}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </div>
     )
 }

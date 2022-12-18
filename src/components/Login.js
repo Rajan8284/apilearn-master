@@ -1,8 +1,10 @@
 import React from "react";
 import LoginService from './function.controller/Login.services';
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {   
      const { values, handleSubmit, handleChange, isError, userLogin, errorMsg } = LoginService();
-
+     
 return (
         <div className="container">
             <div className="signup">
@@ -28,6 +30,18 @@ return (
                     </div><br />
                 </form>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={4000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={true}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </div>
     )
 }

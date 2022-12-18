@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Validation from "../helper/Validation";
 import ContactController from "../apis/controllers/contact.controller";
-
+import { toast } from 'react-toastify';
 const LoginService=()=>{
     const [isError, setError] = useState({
         email: {
@@ -36,12 +36,17 @@ const LoginService=()=>{
             setError({ ...isValid.errors });
         }
     };
+    const notify = () => toast("Password does not match try again");
+    const notify1 = () => toast("Login Successfully");
+
     const userLogin = async () => {
         const response = await new ContactController().postLoginDetail(values);
         if (response && response.status) {
             console.log(response.message);
+            notify1();
             setValues({ email: "", password: "" });
         } else {
+            notify();
             setErrorMsg(response.message);
             console.log("===>>Error", response.message);
         }
