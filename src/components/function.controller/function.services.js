@@ -100,7 +100,8 @@ const FunctionService=()=>{
     const [profession, setProfession] = useState([]);
     const [location, setLocation] = useState([]);
     const [country, setCountry] = useState([]);
-    const [showModal, setShowModal] = useState(false)
+    const [showModal, setShowModal] = useState(false);
+    const [errMsg,setErrMsg]=useState(null);
     const getEducation = async () => {
         const response = await new ContactController().getEducationDetail();
         if (response && response.status) {
@@ -133,6 +134,7 @@ const FunctionService=()=>{
             console.log("NO response");
         }
     };
+   
     const postData = async () => {
         const response = await new ContactController().postFormDetail(values);
         if (response && response.status) {
@@ -141,7 +143,9 @@ const FunctionService=()=>{
             setPage(page + 1);
             console.log("Response success=>", response.message);
         } else {
-            console.log("Response Error=>", response.message);
+            setPage(page===3)
+            setErrMsg(response.message);
+            console.log("Response Error======>", response.message);
         }
     };
     
@@ -218,6 +222,7 @@ return{
     setPage,
     showModal,
     setShowModal,
+    errMsg,
 }
 }
 export default FunctionService

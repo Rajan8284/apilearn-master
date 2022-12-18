@@ -9,7 +9,7 @@ import FunctionService from "./function.controller/function.services";
 
 const Frontscrean = () => {
     const { page, handleChange, isError, values, getCountry, getEducation, getLocation, getProfession, prePage, setError, setPage, setShowModal,
-        showModal, successMsg, verifyEmail, postData, country, location, profession, education, responseMsg } = FunctionService();
+       errMsg,showModal, successMsg, verifyEmail, postData, country, location, profession, education, responseMsg } = FunctionService();
     return (
         <div>
             {page === 1 ?
@@ -59,6 +59,7 @@ const Frontscrean = () => {
 
             {page === 3 ?
                 <Signup3
+                    errMsg={errMsg}
                     postData={() => postData()}
                     isError={isError}
                     handleChange={(field, value) => handleChange(field, value, 'three')}
@@ -70,9 +71,9 @@ const Frontscrean = () => {
                         let isValid = validation.isFormValid(values.three);
                         if (isValid && !isValid.haveError) {
                             if (values.three.password !== values.three.confirmpassword) {
-                                console.log("Password Not match")
+                                console.log("Password Not match");
                             } else {
-                                setPage(page + 1)
+                                console.log("Password match");
                             }
                         } else {
                             setError({ ...isValid.errors });

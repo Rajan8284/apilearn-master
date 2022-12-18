@@ -21,9 +21,7 @@ const Signupverify = (props) => {
                     }}>Verify</button>
                     <br />
                 </div>
-
             </div>
-
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React from "react";
 const Signup3 = (props) => {
-    const { prePage, values, handleChange, isError, handleSubmit , postData} = props;
-   
+    const { prePage, values, handleChange, isError, handleSubmit ,errMsg, postData} = props;
+   console.log("=================SignUp3",errMsg)
    
 
     return (
@@ -24,6 +24,7 @@ const Signup3 = (props) => {
                         values.three.password !== values.three.confirmpassword ?
                             <p>Password not match</p> : ""
                     }
+                    {errMsg}
                     <br /><br />
                     <div className="btn2">
                         <button type="button" onClick={() => prePage()}>Back</button>&nbsp;

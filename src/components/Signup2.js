@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { Form } from "react-bootstrap";
 
 const Signup2 = (props) => {
-    const { handleSubmit, prePage, education, getEducation, getProfession, profession,isError,
-         getLocation, location, getCountry, country,values,handleChange} = props;
+    const { handleSubmit, prePage, education, getEducation, getProfession, profession,
+        isError,getLocation, location, getCountry, country,values,handleChange} = props;
     useEffect(() => {
         getEducation();
         getProfession();
