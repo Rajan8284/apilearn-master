@@ -9,16 +9,17 @@ import FunctionService from "./function.controller/function.services";
 
 const Frontscrean = () => {
     const { page, handleChange, isError, values, getCountry, getEducation, getLocation, getProfession, prePage, setError, setPage, setShowModal,
-       errMsg,showModal, successMsg, verifyEmail, postData, country, location, profession, education, responseMsg } = FunctionService();
+       showModal, successMsg, verifyEmail, postData, country, location, profession, education, responseMsg,nextPage} = FunctionService();
     return (
         <div>
             {page === 1 ?
                 <Signup1
+                    nextPage={()=>nextPage()}
                     isError={isError}
                     values={values}
                     handleChange={(field, value) => handleChange(field, value, 'one')}
                     handleSubmit={(e) => {
-                        e.preventDefault();
+                         e.preventDefault();
                         let validation = new Validation(isError);
                         let isValid = validation.isFormValid(values.one);
                         if (isValid && !isValid.haveError) {
@@ -59,7 +60,7 @@ const Frontscrean = () => {
 
             {page === 3 ?
                 <Signup3
-                    errMsg={errMsg}
+                    responseMsg={responseMsg}
                     postData={() => postData()}
                     isError={isError}
                     handleChange={(field, value) => handleChange(field, value, 'three')}
@@ -82,14 +83,14 @@ const Frontscrean = () => {
 
             {page === 4 ?
                 <Signupverify
+                    successMsg={successMsg}
                     verifyEmail={() => verifyEmail()}
                     responseMsg={responseMsg}
                     isError={isError}
                     values={values}
                     handleChange={(field, value) => handleChange(field, value, 'four')}
                     show={() => setShowModal(true)}
-                    handleSubmit={(e) => {
-                        e.preventDefault();
+                    handleSubmit={() => {
                         let validation = new Validation(isError);
                         let isValid = validation.isFormValid(values.four);
                         if (isValid && !isValid.haveError) {

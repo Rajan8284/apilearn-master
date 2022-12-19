@@ -38,7 +38,6 @@ const LoginService=()=>{
     };
     const notify = () => toast("Password does not match try again");
     const notify1 = () => toast("Login Successfully");
-
     const userLogin = async () => {
         const response = await new ContactController().postLoginDetail(values);
         if (response && response.status) {

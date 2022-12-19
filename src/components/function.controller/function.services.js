@@ -1,8 +1,8 @@
-import {useState} from "react";
+import { useState } from "react";
 import Validation from "../helper/Validation";
 import { toast } from 'react-toastify';
 import ContactController from "../apis/controllers/contact.controller";
-const FunctionService=()=>{
+const FunctionService = () => {
     const [page, setPage] = useState(1);
     const [isError, setError] = useState({
         first_name: {
@@ -102,7 +102,7 @@ const FunctionService=()=>{
     const [location, setLocation] = useState([]);
     const [country, setCountry] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const [errMsg,setErrMsg]=useState(null);
+    const [successMsg, setSuccessMsg] = useState(null);
     const getEducation = async () => {
         const response = await new ContactController().getEducationDetail();
         if (response && response.status) {
@@ -135,33 +135,31 @@ const FunctionService=()=>{
             console.log("NO response");
         }
     };
+
     const notify = () => toast("Email has been already taken Please try with another email address");
     const postData = async () => {
         const response = await new ContactController().postFormDetail(values);
         if (response && response.status) {
-             setResponseMsg(response.message);
+            setResponseMsg(response.message);
             setToken(response.user.token);
             setPage(page + 1);
-            console.log("Response success=>", response.message);
         } else {
             notify();
-            setErrMsg(response.message);
-            console.log("Response Error======>", response.message);
+            setResponseMsg(response.message)
         }
     };
-    
-    const [successMsg, setSuccessMsg] = useState(null);
+    const notify1 = () => toast("The one time password is incorrect");
     const verifyEmail = async () => {
         const response = await new ContactController().postemailDetail(values, token);
         if (response && response.status) {
-            setSuccessMsg(response.message)
+            setSuccessMsg(response.message);
             setShowModal(true);
-            console.log("Verify Successfull");
         } else {
-            console.log("No response");
+            setSuccessMsg(response.message)
+            notify1();
         }
     };
-     
+
     const handleChange = (field, value, step) => {
         let validation = new Validation(isError);
         let node = validation.validateField(field, value);
@@ -201,29 +199,32 @@ const FunctionService=()=>{
     const prePage = () => {
         setPage(page - 1);
     };
-return{
-    page,
-    handleChange,
-    isError,
-    values,
-    getCountry,
-    getEducation,
-    getLocation,
-    getProfession,
-    prePage,
-    successMsg,
-    verifyEmail,
-    postData,
-    country,
-    location,
-    profession,
-    education,
-    responseMsg,
-    setError,
-    setPage,
-    showModal,
-    setShowModal,
-    errMsg,
-}
+    const nextPage = () => {
+        setPage(page + 1);
+    };
+    return {
+        nextPage,
+        page,
+        handleChange,
+        isError,
+        values,
+        getCountry,
+        getEducation,
+        getLocation,
+        getProfession,
+        prePage,
+        successMsg,
+        verifyEmail,
+        postData,
+        country,
+        location,
+        profession,
+        education,
+        responseMsg,
+        setError,
+        setPage,
+        showModal,
+        setShowModal,
+    }
 }
 export default FunctionService

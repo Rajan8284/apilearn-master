@@ -94,7 +94,7 @@ const Signup2 = (props) => {
                     </div><br />
                     <div className="btn2">
                         <button type="button" onClick={() => prePage()}>Back</button>&nbsp;&nbsp;&nbsp;
-                        <button type="button" onClick={(e) => handleSubmit(e)}>Next</button>
+                        <button type="button" onClick={(e) => {handleSubmit(e)}}>Next</button>
                     </div>
                     <br />
                 </form>
